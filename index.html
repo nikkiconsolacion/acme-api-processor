@@ -13,6 +13,7 @@
         ];
         const responses = await Promise.all(urls.map( url => axios.get(url)));
         const [ companies, products, offerings ] = responses.map( response => response.data);
+
         // write functions below
 
         //return products within a price range
@@ -62,15 +63,23 @@
 
         const processedOfferings = processOfferings({ companies, products, offerings });
         console.log('processedOfferings', processedOfferings);
+
+        //returns the companies that have n or more offerings
+        const companiesByNumberOfOfferings = (companies, offerings, n) => {
+          const result = [];
+          companies.forEach( company => {
+            const _offerings = offerings.filter( offering => offering.companyId === company.id);
+            if (_offerings.length >= n) {
+              result.push(company);
+            }
+          });
+          return result;
       };
 
-      //returns the companies that have n or more offerings
-      // const companiesByNumberOfOfferings = (companies, offerings, n) => {
+      const threeOrMoreOfferings = companiesByNumberOfOfferings(companies, offerings, 3);
+      console.log('threeOrMoreOfferings', threeOrMoreOfferings);
 
-      // };
-
-      // const threeOrMoreOfferings = companiesByNumberOfOfferings(companies, offerings, 3);
-      // console.log('threeOrMoreOfferings', threeOrMoreOfferings);
+      };
 
       loadData();
     </script>
