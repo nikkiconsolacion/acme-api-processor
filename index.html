@@ -28,14 +28,9 @@
         const groupCompaniesByLetter = (companies) => {
           return companies.reduce((acc, company)=>{
             const key = company.name[0];
-            if (!(key in acc)) {
-              acc[key] = [company]; //want company obj? or company.name?
-            }
-            else {
-              acc[key].push(company)
-            }
+            !(key in acc) ? acc[key] = [company] : acc[key].push(company);
             return acc;
-          },{})
+          },{});
         };
 
         const groupedCompaniesByLetter = groupCompaniesByLetter(companies);
@@ -46,15 +41,10 @@
         const groupCompaniesByState = (companies) => {
           return companies.reduce((acc, company)=>{
             const key = company.state;
-            if (!(key in acc)) {
-              acc[key] = [company]; //want company obj? or company.name?
-            }
-            else {
-              acc[key].push(company)
-            }
+            !(key in acc) ? acc[key] = [company] : acc[key].push(company);
             return acc;
-          },{})
-        }
+          },{});
+        };
 
         const groupedCompaniesByState = groupCompaniesByState(companies);
         console.log('groupedCompaniesByState', groupedCompaniesByState);
@@ -66,13 +56,21 @@
             const product = products.find( product => product.id === offering.productId);
             const company = companies.find( company => company.id === offering.companyId);
             result.push({...offering, company, product})
-          })
+          });
           return result;
-        }
+        };
 
         const processedOfferings = processOfferings({ companies, products, offerings });
         console.log('processedOfferings', processedOfferings);
       };
+
+      //returns the companies that have n or more offerings
+      // const companiesByNumberOfOfferings = (companies, offerings, n) => {
+
+      // };
+
+      // const threeOrMoreOfferings = companiesByNumberOfOfferings(companies, offerings, 3);
+      // console.log('threeOrMoreOfferings', threeOrMoreOfferings);
 
       loadData();
     </script>
