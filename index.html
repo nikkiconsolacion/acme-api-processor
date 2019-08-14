@@ -23,6 +23,23 @@
         const productsInPriceRange = findProductsInPriceRange(products, {min: 1, max: 15});
         console.log('productsInPriceRange', productsInPriceRange);
 
+        //returns object where key is first letter of company name
+        //value for each key is the array of those companies in that state
+        const groupCompaniesByLetter = (companies) => {
+          return companies.reduce((acc, company)=>{
+            const key = company.name[0];
+            if (!(key in acc)) {
+              acc[key] = [company]; //want company obj? or company.name?
+            }
+            else {
+              acc[key].push(company)
+            }
+            return acc;
+          },{})
+        };
+
+        const groupedCompaniesByLetter = groupCompaniesByLetter(companies);
+        console.log('groupedCompaniesByLetter', groupedCompaniesByLetter);
       };
 
       loadData();
