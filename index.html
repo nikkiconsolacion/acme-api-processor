@@ -24,7 +24,7 @@
         console.log('productsInPriceRange', productsInPriceRange);
 
         //returns object where key is first letter of company name
-        //value for each key is the array of those companies in that state
+        //value for each key is the array of those companies
         const groupCompaniesByLetter = (companies) => {
           return companies.reduce((acc, company)=>{
             const key = company.name[0];
@@ -40,6 +40,24 @@
 
         const groupedCompaniesByLetter = groupCompaniesByLetter(companies);
         console.log('groupedCompaniesByLetter', groupedCompaniesByLetter);
+
+        //returns object where key is a state
+        //value for each key is the array of those companies in that state
+        const groupCompaniesByState = (companies) => {
+          return companies.reduce((acc, company)=>{
+            const key = company.state;
+            if (!(key in acc)) {
+              acc[key] = [company]; //want company obj? or company.name?
+            }
+            else {
+              acc[key].push(company)
+            }
+            return acc;
+          },{})
+        }
+
+        const groupedCompaniesByState = groupCompaniesByState(companies);
+        console.log('groupedCompaniesByState', groupedCompaniesByState);
       };
 
       loadData();
