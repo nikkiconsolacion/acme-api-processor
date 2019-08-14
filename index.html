@@ -79,6 +79,25 @@
       const threeOrMoreOfferings = companiesByNumberOfOfferings(companies, offerings, 3);
       console.log('threeOrMoreOfferings', threeOrMoreOfferings);
 
+      //returns array of products where each product has the average price of its offerings
+      const processProducts = ({ products, offerings }) => {
+        const result = [];
+        products.forEach( product => {
+          const _offerings = offerings.filter( offering => product.id === offering.productId);
+          const prices = _offerings.map( _offering => _offering.price);
+          const total = prices.reduce((acc, curr) => {
+              acc += curr;
+              return acc;
+            },0);
+
+          const averagePrice = (total / _offerings.length).toFixed(2);
+          result.push({ ...product, averagePrice: Number(averagePrice) });
+        });
+        return result;
+      };
+
+      const processedProducts = processProducts({ products, offerings });
+      console.log('processedProducts', processedProducts);
       };
 
       loadData();
