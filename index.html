@@ -58,6 +58,20 @@
 
         const groupedCompaniesByState = groupCompaniesByState(companies);
         console.log('groupedCompaniesByState', groupedCompaniesByState);
+
+        //returns an array of the offerings with each offering having a company and product
+        const processOfferings = ({ companies, products, offerings }) => {
+          const result = [];
+          offerings.forEach( offering => {
+            const product = products.find( product => product.id === offering.productId);
+            const company = companies.find( company => company.id === offering.companyId);
+            result.push({...offering, company, product})
+          })
+          return result;
+        }
+
+        const processedOfferings = processOfferings({ companies, products, offerings });
+        console.log('processedOfferings', processedOfferings);
       };
 
       loadData();
